@@ -11,7 +11,7 @@ create table if not exists Singer (
 create table if not exists Album (
 	id serial primary key,
 	Title text not null,
-	Year_of_creation date not null,
+	Year_of_creation integer not null,
 	Info text,
 	id_singer serial references Singer(id));
 	
