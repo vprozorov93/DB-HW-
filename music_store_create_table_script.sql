@@ -45,5 +45,27 @@ create table if not exists SongCollection (
 	id serial primary key,
 	song integer references Song(id),
 	collection integer references Collection(id));
+	
+-- 	Дополнительное задание
+create table if not exists Department (
+	id serial primary key,
+	Title text not null unique);
+
+	
+create table if not exists Employee (
+	id serial primary key,
+	Name varchar(100) not null,
+	chief boolean not null,
+	department integer references Department(id));
+
+
+create table if not exists Chief (
+	id integer references Employee(id));
+
+
+create table if not exists ChiefEmployee (
+	id serial primary key,
+	chief integer references Chief(id),
+	subordinate integer references Employee(id));
 
 	
