@@ -37,7 +37,7 @@ create table if not exists Collection (
 create table if not exists Song (
 	id serial primary key,
 	Title text not null,
-	Duration timestamp not null,
+	Duration integer not null,
 	id_album integer references Album(id));
 
 
