@@ -29,17 +29,17 @@ where s.alias = 'ATL'
 group by c.title
 
 -- 6
--- так не работает
+-- так
 -- select a.title  from album a 
 -- left join albumsinger a_s on a.id = a_s.album 
--- where a_s.singer = (
+-- where a_s.singer in (
 -- select s.id from singer s 
 -- left join singergenge sg on s.id = sg.singer 
 -- left join genre g on sg.genre = g.id 
 -- group by s.id
 -- having count(g.title) > 1)
 
--- так работает
+-- или так
 select a.title from singer s 
 left join singergenge sg on s.id = sg.singer 
 left join genre g on sg.genre = g.id
