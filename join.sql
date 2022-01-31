@@ -14,10 +14,22 @@ left join song s on a.id = s.id_album
 group by a.title 
 
 -- 4
-select s.singer_name from singer s 
-left join albumsinger a_s on s.id = a_s.singer 
-left join album a on a_s.album = a.id
-where a.year_of_creation != 1787
+-- не верно
+-- select s.singer_name from singer s 
+-- left join albumsinger a_s on s.id = a_s.singer 
+-- left join album a on a_s.album = a.id
+-- where a.year_of_creation != 1787
+
+-- верно
+SELECT DISTINCT s.alias FROM singer s 
+WHERE s.alias NOT IN (
+SELECT DISTINCT s.alias FROM singer s 
+LEFT JOIN albumsinger a_s ON s.id  = a_s.singer 
+LEFT JOIN album a ON a.id  = a_s.album  
+WHERE a.year_of_creation  = 2019
+)
+ORDER BY s.alias;
+
 
 -- 5
 select  c.title from singer s
@@ -60,7 +72,6 @@ left join albumsinger a on s.id_album = a.album
 left join singer s2 on a.singer = s2.id
 where s.duration = (
 	select min(duration) from song)
-group by s2.alias
 
 -- 9
 select a.title from	(select id_album ida, count(title) ct from song 
@@ -70,4 +81,14 @@ where foo.ct = (select min(foo.ct) from (select id_album ida, count(title) ct fr
 										group by song.id_album) foo)
 group by a.title
 
+-- или так
+-- SELECT album.title Album, COUNT(song.title) Track_count FROM album 
+-- JOIN song ON album.id = song.id_album 
+-- GROUP BY album.title
+-- HAVING COUNT(song.title) = ( 
+-- SELECT COUNT(song.title) FROM album
+-- JOIN song ON album.id = song.id_album 
+-- GROUP BY album.title
+-- ORDER BY COUNT(song.title) DESC
+-- LIMIT 1);
 
