@@ -32,13 +32,12 @@ ORDER BY s.alias;
 
 
 -- 5
-select  c.title from singer s
+select distinct c.title from singer s
 left join albumsinger a_s on s.id = a_s.singer
 left join song sg on a_s.album = sg.id_album 
 left join songcollection sc on sg.id = sc.song
 left join collection c on sc.collection = c.id
 where s.alias = 'ATL'
-group by c.title
 
 -- 6
 -- так
